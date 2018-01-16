@@ -8,7 +8,7 @@
 package org.usfirst.frc.team2220.robot;
 
 import org.usfirst.frc.team2220.robot.commands.TestCommandGroup;
-import org.usfirst.frc.team2220.robot.commands.LeftStart.LStartLScale;
+import org.usfirst.frc.team2220.robot.commands.leftstart.LStartLScale;
 import org.usfirst.frc.team2220.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2220.robot.subsystems.TwilightDrive;
 

@@ -8,7 +8,7 @@
 package org.usfirst.frc.team2220.robot;
 
 import org.usfirst.frc.team2220.robot.commands.DriveWithXBox;
-import org.usfirst.frc.team2220.robot.commands.LeftStart.LStartLSwitch;
+import org.usfirst.frc.team2220.robot.commands.leftstart.LStartLSwitch;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;

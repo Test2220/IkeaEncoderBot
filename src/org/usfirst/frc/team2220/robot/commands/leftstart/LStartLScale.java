@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2220.robot.commands.LeftStart;
+package org.usfirst.frc.team2220.robot.commands.leftstart;
 
 import org.usfirst.frc.team2220.robot.commands.DriveToDistance;
 
