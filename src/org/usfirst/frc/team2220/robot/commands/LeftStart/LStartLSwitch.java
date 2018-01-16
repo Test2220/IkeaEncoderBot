@@ -19,10 +19,9 @@ public class LStartLSwitch extends CommandGroup{
 		System.out.println("RAN ONCE");
 		addSequential(new DriveToDistance(tickCheck1));
 		//addSequential(new Delay(2));
-		//Insert Turn 90 degrees right  here
+		//Turn Right 90 degrees
 		addSequential(new DriveToDistance(tickCheck2));
 	
-		
 	}
 	
 }

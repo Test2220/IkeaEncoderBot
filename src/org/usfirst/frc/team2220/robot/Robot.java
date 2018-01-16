@@ -7,14 +7,16 @@
 
 package org.usfirst.frc.team2220.robot;
 
+import org.usfirst.frc.team2220.robot.commands.TestCommandGroup;
+import org.usfirst.frc.team2220.robot.commands.LeftStart.LStartLScale;
+import org.usfirst.frc.team2220.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team2220.robot.subsystems.TwilightDrive;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team2220.robot.commands.ExampleCommand;
-import org.usfirst.frc.team2220.robot.subsystems.TwilightDrive;
-import org.usfirst.frc.team2220.robot.subsystems.ExampleSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,9 +42,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();	
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		m_chooser.addDefault("Test Command", new TestCommandGroup());
+		m_chooser.addDefault("Left Start Left Switch", new LStartLScale());
+		m_chooser.addDefault("Left Start Left Scale", new LStartLScale());
+		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
 	}
 
 	/**
