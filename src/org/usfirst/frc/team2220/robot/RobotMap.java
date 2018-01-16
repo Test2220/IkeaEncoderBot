@@ -24,10 +24,10 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	
-	public static final int leftMaster = 15,
-			leftSlave = 6,	
-			rightMaster = 2,
-			rightSlave = 8;
+	public static final int LEFTMASTER = 15,
+			LEFTSLAVE = 6,	
+			RIGHTMASTER = 2,
+			RIGHTSLAVE = 8;
 	
 	
 }

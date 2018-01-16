@@ -15,7 +15,7 @@ public class Converter {
 
 	public double ftToTEncick(double inputFt) {
 		
-		inputFt = this.inputFt;
+		//inputFt = this.inputFt;
 		 finalTick = (inputFt * 12) / (4*Math.PI) * 1440 ;
 		
 		return finalTick;
