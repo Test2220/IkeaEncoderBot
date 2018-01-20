@@ -12,7 +12,7 @@ public class DriveWithXBox extends Command{
 	
 		protected void DriveWithXBox() {
 			
-			requires(Robot.DriveTrain);
+			requires(TwilightDrive.getInstance());
 			
 		}
 	
@@ -29,10 +29,20 @@ public class DriveWithXBox extends Command{
 			
 			//Negated for appropriation
 			
-			double leftSet = -Robot.oi.getDriverStick().getRawAxis(1);
-			double rightSet = -Robot.oi.getDriverStick().getRawAxis(5);
+			double leftSet = -TwilightDrive.getInstance().deadzone(Robot.oi.getDriverStick().getRawAxis(1));
+			double rightSet = -TwilightDrive.getInstance().deadzone(Robot.oi.getDriverStick().getRawAxis(5));
 			
-			Robot.DriveTrain.driveSet(leftSet, -rightSet, true);
+			Robot.DriveTrain.driveSet(leftSet, -rightSet);
+			//System.out.println(TwilightDrive.getInstance().getLPosition());
+			//System.out.println(TwilightDrive.getInstance().getRPosition());
+
+			
+				/*double xVal = Robot.oi.getDriverStick().getRawAxis(1);
+				double zVal = Robot.oi.getDriverStick().getRawAxis(0);
+				
+				TwilightDrive.getInstance().curvatureDrive(xVal, zVal);
+	*/
+			//}
 			
 		}
 
@@ -54,6 +64,7 @@ public class DriveWithXBox extends Command{
 		@Override
 		protected void interrupted() {
 			
+			new DriveOff();
 			
 		}
 

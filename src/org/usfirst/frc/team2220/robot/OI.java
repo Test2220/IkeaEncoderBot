@@ -8,7 +8,9 @@
 package org.usfirst.frc.team2220.robot;
 
 import org.usfirst.frc.team2220.robot.commands.DriveWithXBox;
-import org.usfirst.frc.team2220.robot.commands.leftstart.LStartLSwitch;
+import org.usfirst.frc.team2220.robot.commands.TestCommandGroup;
+import org.usfirst.frc.team2220.robot.commands.TurnToAngle;
+import org.usfirst.frc.team2220.robot.triggers.TwilightTrigger;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,16 +23,22 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
 	
-	
+	//Joysticks
 	Joystick driverStick = new Joystick(0);
 	Joystick climberStick = new Joystick(1);
 	
-	
+	//Tank Drives
 	Button tankDrive = new JoystickButton(driverStick, 5);
-	Button climberButton = new JoystickButton(climberStick, 5);
 	Button autoTurnButton = new JoystickButton(driverStick, 11);
 	
-	Button driveToDistanceButton = new JoystickButton(driverStick, 2);
+	// Triggers
+	
+	//Buttons
+	Button turnRight90 = new JoystickButton(driverStick, 2);
+	Button turnLeft90 = new JoystickButton(driverStick, 3);
+
+	Button driveToDistance = new JoystickButton(driverStick, 4);
+
 	
 	
 	public Joystick getDriverStick() { 
@@ -38,7 +46,8 @@ public class OI {
 		return driverStick;
 		
 	}
-	
+	private TwilightTrigger isDriving = new TwilightTrigger(driverStick);
+
 	public Joystick getClimberStick() {
 		
 		return climberStick;
@@ -47,8 +56,16 @@ public class OI {
 	
 	public OI(){ 
 		
-		tankDrive.whenPressed(new DriveWithXBox());
-		driveToDistanceButton.whenPressed(new LStartLSwitch());
+		/*if(Math.abs(getDriverStick().getRawAxis(1)) > 0.05 || Math.abs(getDriverStick().getRawAxis(5)) > 0.05) {
+			new DriveWithXBox();
+		}
+		*/
+		//System.out.println(driverStick);
+		isDriving.whileActive(new DriveWithXBox());
+		
+		turnRight90.whenPressed(new TurnToAngle(90));
+		turnLeft90.whenPressed(new TurnToAngle(-90));
+		driveToDistance.whenPressed(new TestCommandGroup());
 		//driveToDistanceButton.whenPressed(new DriveStraightForDistance(finalTick));		
 		//driveToDistanceButton.whenPressed(new DriveForDistanceGroup(finalTick));
 		

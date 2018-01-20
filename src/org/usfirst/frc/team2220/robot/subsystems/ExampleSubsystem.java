@@ -7,17 +7,40 @@
 
 package org.usfirst.frc.team2220.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
-/**
- * An example subsystem.  You can replace me with your own Subsystem.
- */
-public class ExampleSubsystem extends Subsystem {
+
+
+public class ExampleSubsystem extends PIDSubsystem {
+
+double p;
+double i;
+double d;
+double period;
+double f;
+
+	public ExampleSubsystem(double p, double i, double d, double period, double f) {
+		super(p, i, d, period, f);
+		// TODO Auto-generated constructor stub
+	}
+
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
+	}
+
+	@Override
+	protected double returnPIDInput() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected void usePIDOutput(double output) {
+		// TODO Auto-generated method stub
+		
 	}
 }

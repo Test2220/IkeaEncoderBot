@@ -21,7 +21,6 @@ public class TwilightDrive extends Subsystem{
 
 	private static TwilightDrive instance_ = new TwilightDrive();
 	
-	DifferentialDrive ArtemisDrive;
 	
 	public AHRS navX;
 	
@@ -31,20 +30,22 @@ public class TwilightDrive extends Subsystem{
 	double ticksPerRev = 1440;
 	double cyclesPerRev = 360;
 	
-	double kP = 0.7;
+	double kP = 1;
 	double kI = 0.0005;
 	double kD = 0;
 	double kF = 0.0738734;
 	
-	double accel = 400;
-	double cruise = 400;
+	double accel = 100;
+	double cruise = 200;
 	
-	public final static int CLOSEDLOOPERROR = 30; 
+	public final static int CLOSEDLOOPERROR = 20; 
 	
 	public static double rDriveMotorSetpoint = 0;
 	public static double lDriveMotorSetpoint = 0;
 	
+	DifferentialDrive ArtemisDrive;
 
+	
 	public static TwilightDrive getInstance()
 	{
 		return instance_;
@@ -60,6 +61,8 @@ public class TwilightDrive extends Subsystem{
 
 	public TwilightDrive() {
 		
+		//ArtemisDrive = new DifferentialDrive(lDriveMaster, rDriveMaster);
+		
 		//Basic NavX and Drivetrain setup
 		navX = new AHRS(SPI.Port.kMXP);
 		
@@ -67,13 +70,13 @@ public class TwilightDrive extends Subsystem{
 		lDriveSlave  = new CANTalon(RobotMap.LEFTSLAVE);
 		
 		rDriveMaster = new CANTalon(RobotMap.RIGHTMASTER);
-		rDriveSlave  = new CANTalon(RobotMap.LEFTSLAVE);
+		rDriveSlave  = new CANTalon(RobotMap.RIGHTSLAVE);
 		
 		lDriveSlave.changeControlMode(TalonControlMode.Follower);
-		lDriveSlave.set(rDriveMaster.getDeviceID());
+		lDriveSlave.set(lDriveMaster.getDeviceID());
 		
 		rDriveSlave.changeControlMode(TalonControlMode.Follower);
-		rDriveSlave.set(lDriveMaster.getDeviceID());
+		rDriveSlave.set(rDriveMaster.getDeviceID());
 		
 		lDriveMaster.setInverted(false); //TODO Find out Correct Vals
 		rDriveMaster.setInverted(false); //TODO Find out Correct Vals
@@ -81,14 +84,13 @@ public class TwilightDrive extends Subsystem{
 		// Encoder Stuff
 		
 		lDriveMaster.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		lDriveMaster.reverseOutput(false); // TODO Check real boolean in Web Client
-		lDriveMaster.configEncoderCodesPerRev(360);
+		lDriveMaster.reverseSensor(true);// TODO Check real boolean in Web Client
 		lDriveMaster.setAllowableClosedLoopErr(CLOSEDLOOPERROR);
 		
 		rDriveMaster.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		rDriveMaster.reverseOutput(false); // TODO Check real boolean in Web Client
-		rDriveMaster.configEncoderCodesPerRev(360);
+		rDriveMaster.reverseOutput(true); // TODO Check real boolean in Web Client
 		rDriveMaster.setAllowableClosedLoopErr(CLOSEDLOOPERROR); 
+		
 		
 		//Set PID and Motion Magic Vals
 		
@@ -108,17 +110,16 @@ public class TwilightDrive extends Subsystem{
 
 	//------------DRIVE SETS------------//
 
-	public void driveSet(double leftVal, double rightVal, boolean deadzone){
-		if (deadzone) {
-			leftVal = deadzone(leftVal);
-			rightVal = deadzone(rightVal);
+	public void driveSet(double leftVal, double rightVal){
 			
-			lDriveMaster.set(leftVal);
-			rDriveMaster.set(rightVal);		
-		} else {
-			lDriveMaster.set(leftVal);
-			rDriveMaster.set(rightVal);	
-		}
+		lDriveMaster.set(leftVal);
+		rDriveMaster.set(rightVal);
+		
+	}
+	
+	public void curvatureDrive(double xVal, double zVal) {
+		
+		ArtemisDrive.curvatureDrive(xVal, zVal, true);
 		
 	}
 	
@@ -135,11 +136,13 @@ public class TwilightDrive extends Subsystem{
 		lDriveMaster.set(0);
 	}
 	
+	
 	//-----------------ENCODER STUFF------------------//
 
 	public void resetEncoderPos(){
 		lDriveMaster.setEncPosition(0);
 		rDriveMaster.setEncPosition(0);
+		System.out.printf("ZERO ENCODERS %d %d", lDriveMaster.getEncPosition(), rDriveMaster.getEncPosition());
 	}
 	
 	public double getLPosition(){
@@ -201,6 +204,7 @@ public class TwilightDrive extends Subsystem{
 	
 
 	public boolean hasHitLSetpoint(){
+		System.out.println(lDriveMaster.getClosedLoopError());
 		return Math.abs(lDriveMaster.getClosedLoopError()) < CLOSEDLOOPERROR;
 	}
 	
@@ -209,9 +213,13 @@ public class TwilightDrive extends Subsystem{
 	}
 
 	
-	public boolean hasHitBothSetpoints() {
+	public boolean hasHitBothSetpoints(double checker) {
 		
-		return hasHitLSetpoint() && hasHitRSetpoint();
+		if (Math.abs(lDriveMaster.getPosition() - checker)  < 30 && Math.abs(rDriveMaster.getPosition() - checker)  < 30) {
+		return true;
+		} else {
+			return false;
+		}
 		
 	}
 	

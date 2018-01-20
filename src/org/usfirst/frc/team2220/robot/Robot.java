@@ -15,6 +15,7 @@ import org.usfirst.frc.team2220.robot.subsystems.TwilightDrive;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,7 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
+	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem(1.5, 2, 3, 4, 5);
 	public static final TwilightDrive DriveTrain = new TwilightDrive();
 
 	
@@ -39,6 +40,8 @@ public class Robot extends TimedRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
+	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void robotInit() {
 		oi = new OI();	
@@ -46,9 +49,12 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("Left Start Left Switch", new LStartLScale());
 		m_chooser.addDefault("Left Start Left Scale", new LStartLScale());
 		
+		LiveWindow.addActuator("Boi", "high", TwilightDrive.getInstance().lDriveMaster);
+		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
+		 m_autonomousCommand = m_chooser.getSelected();
 	}
 
 	/**
@@ -110,7 +116,7 @@ public class Robot extends TimedRobot {
 		// this line or comment it out.
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
-		}
+		}	
 	}
 
 	/**
@@ -126,5 +132,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+
 	}
 }

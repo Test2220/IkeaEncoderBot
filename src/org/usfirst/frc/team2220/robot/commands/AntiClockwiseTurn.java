@@ -4,11 +4,13 @@ import org.usfirst.frc.team2220.robot.subsystems.TwilightDrive;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveToDistance extends Command{
+public class AntiClockwiseTurn extends Command{
+	
+
 
 	double targetTicks;
 	
-	public DriveToDistance(double targetTicks) {
+	public AntiClockwiseTurn(double targetTicks) {
 		
 		requires(TwilightDrive.getInstance());
 		this.targetTicks = targetTicks;
@@ -29,7 +31,7 @@ public class DriveToDistance extends Command{
 		System.out.println("Initialized");
 		System.out.println(targetTicks);
 		
-		TwilightDrive.getInstance().driveSet(targetTicks, targetTicks);
+		TwilightDrive.getInstance().driveSet(-targetTicks, targetTicks);
 
 	}
 
@@ -65,4 +67,5 @@ public class DriveToDistance extends Command{
 	
 	
 	}
+
 }

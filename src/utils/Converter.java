@@ -2,8 +2,14 @@ package utils;
 
 public class Converter {
 	
-	double inputFt;
 	double finalTick;
+	
+	double encTickPerRev = 1440;
+	
+	double wheelDiameter = 4;
+	double wheelCircumference = Math.PI * 4;
+	
+	double frameWidthFt = 27.5/12;
 	
 	private static Converter _instance = new Converter();
 	
@@ -13,12 +19,23 @@ public class Converter {
 		
 	}
 
-	public double ftToTEncick(double inputFt) {
+	public double ftToEncTicks(double inputFt) {
 		
 		//inputFt = this.inputFt;
-		 finalTick = (inputFt * 12) / (4*Math.PI) * 1440 ;
 		
-		return finalTick;
+		return (inputFt * 12) / (wheelCircumference) * encTickPerRev ;
+		
+	}
+	
+	public double degreesTurnToEncTicks(double degreesToTurn) {
+		
+		double circumFt = frameWidthFt * Math.PI;
+		double turnRatio = degreesToTurn/360;
+		
+		double arcLengthFt = turnRatio * circumFt;
+		double arcLengthTicks = ftToEncTicks(arcLengthFt);
+		
+		return arcLengthTicks;
 		
 	}
 

@@ -9,8 +9,8 @@ public class LStartLScale extends CommandGroup{
 	
 	public LStartLScale() {
 		
-		double target1 = Converter.getInstance().ftToTEncick(27);
-		double target2 = Converter.getInstance().ftToTEncick(3.49);
+		double target1 = Converter.getInstance().ftToEncTicks(27);
+		double target2 = Converter.getInstance().ftToEncTicks(3.49);
 		
 		addSequential(new DriveToDistance(target1));
 		//Turn Right 90 degrees
