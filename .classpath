@@ -8,6 +8,10 @@
 	<classpathentry kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar" sourcepath="/CTRE Sources"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar" sourcepath="/boitest"/>
+	<classpathentry kind="lib" path="D:/Programming/Java/IkeaEncoderBot/libs/Pathfinder-Java-1.8.jar" sourcepath="D:/Programming/Java/IkeaEncoderBot/libs/Pathfinder-Java-1.8-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Programming/Java/IkeaEncoderBot/libs/Pathfinder-Java-1.8-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Programming/Java/IkeaEncoderBot/libs/MatchData-2018.01.07-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Programming/Java/IkeaEncoderBot/libs/MatchData-2018.01.07.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

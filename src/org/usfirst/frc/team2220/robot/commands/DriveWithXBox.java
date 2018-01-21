@@ -5,6 +5,7 @@ import org.usfirst.frc.team2220.robot.RobotMap;
 import org.usfirst.frc.team2220.robot.subsystems.TwilightDrive;
 
 import edu.wpi.first.wpilibj.command.Command;
+import utils.Converter;
 
 public class DriveWithXBox extends Command{
 
@@ -20,6 +21,7 @@ public class DriveWithXBox extends Command{
 		protected void initialize() {
 			
 			TwilightDrive.getInstance().changeToPercentVBus();
+			System.out.println( Converter.getInstance().errorToPGain(5000));
 			
 		}
 
@@ -49,7 +51,10 @@ public class DriveWithXBox extends Command{
 		// Called once after isFinished returns true
 		@Override
 		protected void end() {
-
+			if (true) {
+				
+				
+			}
 		}
 		
 

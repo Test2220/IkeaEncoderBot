@@ -1,8 +1,8 @@
 package org.usfirst.frc.team2220.robot.commands.leftstart;
 
-import org.usfirst.frc.team2220.robot.commands.Delay;
+import org.usfirst.frc.team2220.robot.commands.ClockwiseTurn;
 import org.usfirst.frc.team2220.robot.commands.DriveToDistance;
-import org.usfirst.frc.team2220.robot.commands.TurnToAngle;
+import org.usfirst.frc.team2220.robot.commands.ResetEncoderPos;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import utils.Converter;
@@ -20,10 +20,13 @@ public class LStartLSwitch extends CommandGroup{
 		System.out.println("RAN ONCE");
 		addSequential(new DriveToDistance(tickCheck1));
 		//addSequential(new Delay(2));
-		addSequential(new TurnToAngle(90));
+		//addSequential(new TurnToAngle(90));
+		addSequential(new ResetEncoderPos());
+		addSequential(new ClockwiseTurn(Converter.getInstance().degreesTurnToEncTicks(90)));
 		//addSequential(new Delay(2));
 		//Turn Right 90 degrees
-		addSequential(new DriveToDistance(tickCheck2));
+		addSequential(new ResetEncoderPos());
+		addSequential(new DriveToDistance(tickCheck1));
 	
 	}
 	

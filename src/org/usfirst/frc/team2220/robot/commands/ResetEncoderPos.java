@@ -14,7 +14,7 @@ public class ResetEncoderPos extends Command{
 	
 protected void initialize() {
 		
-		TwilightDrive.getInstance().resetEncoderPos();
+		TwilightDrive.getInstance().changeToPercentVBus();
 		
 	}
 

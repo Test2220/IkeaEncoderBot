@@ -9,6 +9,7 @@ package org.usfirst.frc.team2220.robot;
 
 import org.usfirst.frc.team2220.robot.commands.TestCommandGroup;
 import org.usfirst.frc.team2220.robot.commands.leftstart.LStartLScale;
+import org.usfirst.frc.team2220.robot.commands.leftstart.LStartLSwitch;
 import org.usfirst.frc.team2220.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2220.robot.subsystems.TwilightDrive;
 
@@ -46,7 +47,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = new OI();	
 		m_chooser.addDefault("Test Command", new TestCommandGroup());
-		m_chooser.addDefault("Left Start Left Switch", new LStartLScale());
+		m_chooser.addDefault("Left Start Left Switch", new LStartLSwitch());
 		m_chooser.addDefault("Left Start Left Scale", new LStartLScale());
 		
 		LiveWindow.addActuator("Boi", "high", TwilightDrive.getInstance().lDriveMaster);

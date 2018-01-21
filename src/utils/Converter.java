@@ -4,7 +4,7 @@ public class Converter {
 	
 	double finalTick;
 	
-	double encTickPerRev = 1440;
+	double encTickPerRev = 1440; //https://www.andymark.com/E4T-OEM-Miniature-Optical-Encoder-Kit-p/am-3132.htm
 	
 	double wheelDiameter = 4;
 	double wheelCircumference = Math.PI * 4;
@@ -30,12 +30,28 @@ public class Converter {
 	public double degreesTurnToEncTicks(double degreesToTurn) {
 		
 		double circumFt = frameWidthFt * Math.PI;
-		double turnRatio = degreesToTurn/360;
+		double turnRatio = (degreesToTurn + 15)/360;
 		
 		double arcLengthFt = turnRatio * circumFt;
 		double arcLengthTicks = ftToEncTicks(arcLengthFt);
 		
+		
 		return arcLengthTicks;
+		
+	}
+	
+	public double maxRPMToFGain(int maxRPM) {
+		
+		double fGainTemp = maxRPM * (1.0/60) * (1.0/10) * (encTickPerRev/1);
+		double fGain = 1023.0/fGainTemp;
+		return fGain;
+		
+	}
+	
+	public double errorToPGain(double error) {
+		
+		double pGain = (24*1023) / error;
+		return pGain;
 		
 	}
 

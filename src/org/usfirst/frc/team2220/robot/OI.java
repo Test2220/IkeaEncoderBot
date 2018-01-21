@@ -7,14 +7,15 @@
 
 package org.usfirst.frc.team2220.robot;
 
+import org.usfirst.frc.team2220.robot.commands.ClockwiseTurn;
 import org.usfirst.frc.team2220.robot.commands.DriveWithXBox;
-import org.usfirst.frc.team2220.robot.commands.TestCommandGroup;
 import org.usfirst.frc.team2220.robot.commands.TurnToAngle;
 import org.usfirst.frc.team2220.robot.triggers.TwilightTrigger;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import utils.Converter;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -65,7 +66,8 @@ public class OI {
 		
 		turnRight90.whenPressed(new TurnToAngle(90));
 		turnLeft90.whenPressed(new TurnToAngle(-90));
-		driveToDistance.whenPressed(new TestCommandGroup());
+		driveToDistance.whenPressed(new ClockwiseTurn(Converter.getInstance().degreesTurnToEncTicks(180)));
+		
 		//driveToDistanceButton.whenPressed(new DriveStraightForDistance(finalTick));		
 		//driveToDistanceButton.whenPressed(new DriveForDistanceGroup(finalTick));
 		
