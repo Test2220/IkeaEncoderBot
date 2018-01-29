@@ -33,4 +33,6 @@ public class RobotMap {
 			RIGHTSLAVE = 8;
 	
 	
+	
+	
 }

@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 //import jaci.pathfinder.Pathfinder;
 //import jaci.pathfinder.Trajectory;
+//import jaci.pathfinder.Pathfinder;
+//import jaci.pathfinder.Trajectory;
 import utils.Converter;
 
 @SuppressWarnings("deprecation")
@@ -34,25 +36,33 @@ public class TwilightDrive extends Subsystem{
 	
 	
 	double ticksPerRev = 1440;
-	double cyclesPerRev = 360;
+	//double cyclesPerRev = 360;
 	
-	double kPl= Converter.getInstance().errorToPGain(4927);
-	double kPr = Converter.getInstance().errorToPGain(5000);
-	double kI = 0.0000;
-	double kDl = 10 * kPl;
-	double kDr = 10 * kPr;
-	double kFl = Converter.getInstance().maxRPMToFGain(1406);
-	double kFr = Converter.getInstance().maxRPMToFGain(1437);
+	int  maxRPMl = 1460;
+	int  maxRPMr = 0;
 	
-	double accel = 100;
-	double cruise = 200;
+	double pLeft= Converter.getInstance().errorToPGain(8159, 10); //LEFT SIDE
+	double iLeft = 0.008;
+	double dLeft = 20 * pLeft;
+	double fLeft = Converter.getInstance().maxRPMToFGain(maxRPMl); 
+	int  iZoneLeft = 50;
+
 	
-	public final static int CLOSEDLOOPERROR = 30; 
+	double pRight = Converter.getInstance().errorToPGain(0, 12); //RIGHT SIDE
+	double iRight = 0.0000;
+	double dRight = 0;
+	double fRight = Converter.getInstance().maxRPMToFGain(0);
+	int  iZoneRight = 50;
+	 
+	double accel = maxRPMl * 0.75;
+	double cruise = maxRPMl * 0.75;
+	
+	public final static int CLOSEDLOOPERROR = 40; 
 	
 	public static double rDriveMotorSetpoint = 0;
 	public static double lDriveMotorSetpoint = 0;
 	
-	DifferentialDrive ArtemisDrive;
+	public DifferentialDrive TwilightDrive;
 	
 	
 	
@@ -60,6 +70,7 @@ public class TwilightDrive extends Subsystem{
 	{
 		return instance_;
 	}
+
 	
 	
 	@Override
@@ -71,7 +82,8 @@ public class TwilightDrive extends Subsystem{
 
 	public TwilightDrive() {
 		
-		//ArtemisDrive = new DifferentialDrive(lDriveMaster, rDriveMaster);
+		//Differential Drive Initialize
+		
 		
 		//Basic NavX and Drivetrain setup
 		navX = new AHRS(SPI.Port.kMXP);
@@ -104,17 +116,20 @@ public class TwilightDrive extends Subsystem{
 		
 		//Set PID and Motion Magic Vals
 		
-		lDriveMaster.setPID(kPl, kI, kDl);
-		lDriveMaster.setF(kFl);
+		lDriveMaster.setPID(pLeft, iLeft, dLeft);
+		lDriveMaster.setIZone(iZoneLeft);
+		lDriveMaster.setF(fLeft);
 		lDriveMaster.setMotionMagicAcceleration(accel);
 		lDriveMaster.setMotionMagicCruiseVelocity(cruise);
 		
-		rDriveMaster.setPID(kPr, kI, kDr);
-		rDriveMaster.setF(kFr);
+		rDriveMaster.setPID(pRight, iRight, dRight);
+		rDriveMaster.setIZone(iZoneRight);
+		rDriveMaster.setF(fRight);
 		rDriveMaster.setMotionMagicAcceleration(accel);
 		rDriveMaster.setMotionMagicCruiseVelocity(cruise);
 		
-		
+		TwilightDrive = new DifferentialDrive(lDriveMaster, rDriveMaster);
+		TwilightDrive.setSafetyEnabled(false);
 		
 	}
 	
@@ -130,8 +145,8 @@ public class TwilightDrive extends Subsystem{
 	}
 	
 	public void curvatureDrive(double xVal, double zVal) {
-		
-		ArtemisDrive.curvatureDrive(xVal, zVal, true);
+		System.out.println(xVal);
+		TwilightDrive.curvatureDrive(xVal, zVal, true);
 		
 	}
 	
@@ -223,7 +238,6 @@ public class TwilightDrive extends Subsystem{
 	}
 
 	//--------------SETPOINT CHECKERS------------------//
-	
 
 	public boolean hasHitLSetpoint(){
 		return Math.abs(lDriveMaster.getClosedLoopError()) <= CLOSEDLOOPERROR;
@@ -233,8 +247,8 @@ public class TwilightDrive extends Subsystem{
 		return Math.abs(rDriveMaster.getClosedLoopError()) <= CLOSEDLOOPERROR;
 	}
 
-	private final int DONE_COUNT_MAX = 10;
-	private int currentDoneCount = 0;
+	public final int DONE_COUNT_MAX = 10;
+	public  int currentDoneCount = 0;
 	
 	
 	public boolean hasHitBothSetpoints(double checker) {
@@ -280,16 +294,16 @@ public class TwilightDrive extends Subsystem{
 		return signum * Math.pow(Math.abs(val), 1.1);
   }
 	
-	/*//----------------MOTION PROFILE STUFF-------------------//
-	
-	public void  loadFromCSV(String leftPath, String rightPath) {
-		
-		File leftTraj = new File(leftPath);
-		File rightTraj = new File(rightPath);
-		
-		Trajectory leftTrajectory  = Pathfinder.readFromCSV(leftTraj);
-		Trajectory rightTrajectory = Pathfinder.readFromCSV(rightTraj);
-		
-	}*/
+	//----------------MOTION PROFILE STUFF-------------------//
+//	
+//	public void  loadFromCSV(String leftPath, String rightPath) {
+//		
+//		File leftTraj = new File(leftPath);
+//		File rightTraj = new File(rightPath);
+//		
+//		Trajectory leftTrajectory  = Pathfinder.readFromCSV(leftTraj);
+//		Trajectory rightTrajectory = Pathfinder.readFromCSV(rightTraj);
+//		
+//	}
 	
 }

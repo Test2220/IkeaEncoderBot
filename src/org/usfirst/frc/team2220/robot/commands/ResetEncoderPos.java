@@ -15,7 +15,7 @@ public class ResetEncoderPos extends Command{
 protected void initialize() {
 		
 		TwilightDrive.getInstance().changeToPercentVBus();
-		
+		System.out.println("RAN ONCE");
 	}
 
 	@Override

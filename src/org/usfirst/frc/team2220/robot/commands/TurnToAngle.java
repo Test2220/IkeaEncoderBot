@@ -74,7 +74,7 @@ public class TurnToAngle extends Command{
         //TwilightDrive.getInstance().navX.reset();
         TwilightDrive.getInstance().resetEncoderPos();
         // Start the PID Controller
-        turnPIDController = new PIDController(.06, 0.0, 0.001, TwilightDrive.getInstance().navX, new Output());
+        turnPIDController = new PIDController(.025, 0.0, 0.001, TwilightDrive.getInstance().navX, new Output());
         turnPIDController.setSetpoint(targetAngle);
         turnPIDController.setAbsoluteTolerance(1.3);
         turnPIDController.enable();

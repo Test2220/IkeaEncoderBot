@@ -42,9 +42,10 @@ public class DriveToDistance extends Command{
 	}
 
 	// Make this return true when this sCommand no longer needs to run execute()
+	@SuppressWarnings("deprecation")
 	@Override
 	protected boolean isFinished() {
-	
+	System.out.println(TwilightDrive.getInstance().lDriveMaster.getClosedLoopError());
 	return TwilightDrive.getInstance().hasHitBothSetpoints(targetTicks);
 	
 	}
@@ -52,7 +53,9 @@ public class DriveToDistance extends Command{
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		System.out.println("ENDED?");
+		System.out.println("ENDED DRIVE TO DISTANCE ");
+		TwilightDrive.getInstance().currentDoneCount = 0;
+
     	TwilightDrive.getInstance().changeToPercentVBus();
 
 	}

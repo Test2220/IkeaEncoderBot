@@ -22,8 +22,8 @@ public class ClockwiseTurn extends Command{
 	protected void initialize() {
 		TwilightDrive.getInstance().resetEncoderPos();
 		
-		TwilightDrive.getInstance().setBothAccel(300);
-		TwilightDrive.getInstance().setBothCruiseVel(500);
+		TwilightDrive.getInstance().setBothAccel(500);
+		TwilightDrive.getInstance().setBothCruiseVel(1000);
 		TwilightDrive.getInstance().changeToMotionMagic();
 
 		
@@ -38,7 +38,7 @@ public class ClockwiseTurn extends Command{
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		System.out.println(TwilightDrive.getInstance().lDriveMaster.getClosedLoopError());
+		System.out.println(TwilightDrive.getInstance().rDriveMaster.getClosedLoopError());
 
 		//System.out.println("CLOCKWISE TURN");
 		
@@ -55,7 +55,8 @@ public class ClockwiseTurn extends Command{
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		System.out.println("ENDED?");
+		System.out.println("ENDED TURN TO ANGLE CLOCKWISE");
+		TwilightDrive.getInstance().currentDoneCount = 0;
     	TwilightDrive.getInstance().changeToPercentVBus();
 
 	}

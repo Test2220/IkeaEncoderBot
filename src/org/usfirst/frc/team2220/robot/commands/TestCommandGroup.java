@@ -15,8 +15,10 @@ public class TestCommandGroup extends CommandGroup{
 		addSequential(new DriveToDistance(target1));
 		//addSequential(new Delay(1));
 		//TODO Turn right 90 degrees
-		//addSequential(new ResetEncoderPos());
+		addSequential(new ResetEncoderPos());
 		addSequential(new ClockwiseTurn(90));
+		addSequential(new ResetEncoderPos());
+
 		//addSequential(new TurnToAngle(90));
 		//addSequential(new Delay(1));
 		addSequential(new DriveToDistance(target2));

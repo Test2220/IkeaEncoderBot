@@ -11,7 +11,7 @@ public class DriveWithXBox extends Command{
 
 	// Called just before this Command runs the first time
 	
-		protected void DriveWithXBox() {
+		public DriveWithXBox() {
 			
 			requires(TwilightDrive.getInstance());
 			
@@ -21,7 +21,6 @@ public class DriveWithXBox extends Command{
 		protected void initialize() {
 			
 			TwilightDrive.getInstance().changeToPercentVBus();
-			System.out.println( Converter.getInstance().errorToPGain(5000));
 			
 		}
 
@@ -31,22 +30,22 @@ public class DriveWithXBox extends Command{
 			
 			//Negated for appropriation
 			
-			double leftSet = -TwilightDrive.getInstance().deadzone(Robot.oi.getDriverStick().getRawAxis(1));
-			double rightSet = -TwilightDrive.getInstance().deadzone(Robot.oi.getDriverStick().getRawAxis(5));
-			
-			Robot.DriveTrain.driveSet(leftSet, -rightSet);
+//			double leftSet = -TwilightDrive.getInstance().deadzone(Robot.oi.getDriverStick().getRawAxis(1));
+//			double rightSet = -TwilightDrive.getInstance().deadzone(Robot.oi.getDriverStick().getRawAxis(5));
+//			
+//			Robot.DriveTrain.driveSet(leftSet, -rightSet);
 			//System.out.println(TwilightDrive.getInstance().getLPosition());
 			//System.out.println(TwilightDrive.getInstance().getRPosition());
 
 			
-				/*double xVal = Robot.oi.getDriverStick().getRawAxis(1);
-				double zVal = Robot.oi.getDriverStick().getRawAxis(0);
+				double xVal = Robot.oi.getDriverStick().getRawAxis(1);
+				double zVal = Robot.oi.getDriverStick().getRawAxis(4);
 				
 				TwilightDrive.getInstance().curvatureDrive(xVal, zVal);
-	*/
-			//}
+	
+			}
 			
-		}
+		
 
 		// Called once after isFinished returns true
 		@Override
