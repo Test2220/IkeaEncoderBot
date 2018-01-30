@@ -23,8 +23,6 @@ public class LStartLSwitch extends CommandGroup{
 		//addSequential(new TurnToAngle(90));
 		addSequential(new ResetEncoderPos());
 		addSequential(new ClockwiseTurn(Converter.getInstance().degreesTurnToEncTicks(90)));
-		addSequential(new ResetEncoderPos());
-
 		//addSequential(new Delay(2));
 		//Turn Right 90 degrees
 		addSequential(new ResetEncoderPos());

@@ -7,16 +7,16 @@
 
 package org.usfirst.frc.team2220.robot;
 
-import org.usfirst.frc.team2220.robot.commands.TestCommandGroup;
-import org.usfirst.frc.team2220.robot.commands.leftstart.LStartLScale;
-import org.usfirst.frc.team2220.robot.commands.leftstart.LStartLSwitch;
+import org.usfirst.frc.team2220.robot.commands.LeftAutoHelper;
+import org.usfirst.frc.team2220.robot.commands.MiddleAutoHelper;
+import org.usfirst.frc.team2220.robot.commands.RightAutoHelper;
+import org.usfirst.frc.team2220.robot.commands.SelectorNotChosen;
 import org.usfirst.frc.team2220.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2220.robot.subsystems.TwilightDrive;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -34,32 +34,32 @@ public class Robot extends TimedRobot {
 	
 	public static OI oi;
 
-	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	public Command autonomousCommand;
+	SendableChooser<Command> sideChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public void robotInit() {
 		oi = new OI();	
-		m_chooser.addDefault("Test Command", new TestCommandGroup());
-		m_chooser.addDefault("Left Start Left Switch", new LStartLSwitch());
-		m_chooser.addDefault("Left Start Left Scale", new LStartLScale());
 		
-		LiveWindow.addActuator("Boi", "high", TwilightDrive.getInstance().lDriveMaster);
+		sideChooser.setName("SIDE");
+		sideChooser.addDefault("CHOOSE AN AUTO", new SelectorNotChosen());
+		sideChooser.addObject("LEFT", new LeftAutoHelper());
+		sideChooser.addObject("MIDDLE", new MiddleAutoHelper());
+		sideChooser.addDefault("RIGHT", new RightAutoHelper());
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		SmartDashboard.putData("Auto mode", sideChooser);
 		
-		 m_autonomousCommand = m_chooser.getSelected();
+		 autonomousCommand = sideChooser.getSelected();
 	}
 
 	/**
-	 * This function is called once each time the robot enters Disabled mode.
+	 * This function is called once each time the robot enters Disabled mode.o
 	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
 	 */
@@ -86,7 +86,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -96,8 +95,8 @@ public class Robot extends TimedRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
+		if (autonomousCommand != null) {
+			autonomousCommand.start();
 		}
 	}
 
@@ -115,8 +114,8 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
 		}	
 	}
 

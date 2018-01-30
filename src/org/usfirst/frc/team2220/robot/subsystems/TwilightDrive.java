@@ -1,8 +1,7 @@
 package org.usfirst.frc.team2220.robot.subsystems;
 
-import java.io.File;
-
 import org.usfirst.frc.team2220.robot.RobotMap;
+import org.usfirst.frc.team2220.robot.commands.DriveWithXBox;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -76,6 +75,7 @@ public class TwilightDrive extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
+		setDefaultCommand(new DriveWithXBox());
 	
 	}
 	
