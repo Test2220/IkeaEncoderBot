@@ -3,9 +3,9 @@ package org.usfirst.frc.team2220.robot.commands.leftstart;
 import org.usfirst.frc.team2220.robot.commands.ClockwiseTurn;
 import org.usfirst.frc.team2220.robot.commands.DriveToDistance;
 import org.usfirst.frc.team2220.robot.commands.ResetEncoderPos;
+import org.usfirst.frc.team2220.robot.utils.Converter;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import utils.Converter;
 
 public class LStartLSwitch extends CommandGroup{
 

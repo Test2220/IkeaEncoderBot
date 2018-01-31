@@ -3,9 +3,9 @@ package org.usfirst.frc.team2220.robot.commands;
 import org.usfirst.frc.team2220.robot.Robot;
 import org.usfirst.frc.team2220.robot.RobotMap;
 import org.usfirst.frc.team2220.robot.subsystems.TwilightDrive;
+import org.usfirst.frc.team2220.robot.utils.Converter;
 
 import edu.wpi.first.wpilibj.command.Command;
-import utils.Converter;
 
 public class DriveWithXBox extends Command{
 

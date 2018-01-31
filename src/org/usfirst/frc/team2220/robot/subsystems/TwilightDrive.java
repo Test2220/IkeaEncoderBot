@@ -2,6 +2,7 @@ package org.usfirst.frc.team2220.robot.subsystems;
 
 import org.usfirst.frc.team2220.robot.RobotMap;
 import org.usfirst.frc.team2220.robot.commands.DriveWithXBox;
+import org.usfirst.frc.team2220.robot.utils.Converter;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -11,11 +12,6 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-//import jaci.pathfinder.Pathfinder;
-//import jaci.pathfinder.Trajectory;
-//import jaci.pathfinder.Pathfinder;
-//import jaci.pathfinder.Trajectory;
-import utils.Converter;
 
 @SuppressWarnings("deprecation")
 

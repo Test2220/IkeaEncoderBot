@@ -1,7 +1,8 @@
 package org.usfirst.frc.team2220.robot.commands;
 
+import org.usfirst.frc.team2220.robot.utils.Converter;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import utils.Converter;
 
 public class TestCommandGroup extends CommandGroup{
 	
